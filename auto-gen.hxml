@@ -1,0 +1,10 @@
+-cp src 
+--macro "unicode.tr29.internal.generate.BoundaryPropertyValuesGen.generateExtern('./spec/tr29/properties/WordBreakProperty.txt', ['unicode','tr29','internal'], 'WordValues')"
+
+--next
+-cp src 
+--macro "unicode.tr29.internal.generate.BoundaryPropertyValuesGen.generateExtern('./spec/tr29/properties/GraphemeBreakProperty.txt', ['unicode','tr29','internal'], 'GraphemeValues')"
+
+--next
+-cp src 
+--macro "unicode.tr29.internal.generate.BoundaryPropertyValuesGen.generateExtern('./spec/tr29/properties/SentenceBreakProperty.txt', ['unicode','tr29','internal'], 'SentenceValues')"

@@ -1,0 +1,11 @@
+{
+  "name": "hx-unicode",
+  "url" : "https://github.com/m22spencer/hx-unicode",
+  "license": "MIT",
+  "tags": ["cross", "unicode", "text"],
+  "description": "",
+  "version": "0.0.1",
+  "releasenote": "",
+  "contributors": ["m22spencer"],
+  "dependencies": {}
+}

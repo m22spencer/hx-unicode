@@ -1,0 +1,27 @@
+-cp src
+-cp test
+-x TestAll
+
+--next 
+-cp src
+-cp test
+--interp TestAll
+
+--next 
+-cp src
+-cp test
+--macro "TestAll.macroMain()"
+
+--next
+-cp src
+-cp test
+-main TestAll
+-cpp bin/cpp
+-cmd "bin\\cpp\\TestAll"
+
+--next
+-cp src
+-cp test
+-main TestAll
+-cs bin/cs
+-cmd "bin\\cs\\bin\\TestAll"
