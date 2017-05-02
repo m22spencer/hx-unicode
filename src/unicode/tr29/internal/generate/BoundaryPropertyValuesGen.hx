@@ -62,7 +62,8 @@ class BoundaryPropertyValuesGen {
             case _:
             }
         }
-        l('        return m.exists(code) ? m.get(code) : Other;');
+        l('        var res = m.get(code);');
+        l('        return res != null ? res : Other;');
         l('    }');
         l('}');
 

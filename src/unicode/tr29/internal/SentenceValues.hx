@@ -2587,7 +2587,8 @@ class SentenceValues {
         if (code >= 65040 && code <= 65041) return SContinue;
         if (code >= 65073 && code <= 65074) return SContinue;
         if (code >= 65104 && code <= 65105) return SContinue;
-        return m.exists(code) ? m.get(code) : Other;
+        var res = m.get(code);
+        return res != null ? res : Other;
     }
 }
 enum SentenceValuesEnum {

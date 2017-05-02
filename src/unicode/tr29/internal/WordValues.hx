@@ -1178,7 +1178,8 @@ class WordValues {
         if (code >= 129340 && code <= 129342) return E_Base;
         if (code >= 127995 && code <= 127999) return E_Modifier;
         if (code >= 128102 && code <= 128105) return E_Base_GAZ;
-        return m.exists(code) ? m.get(code) : Other;
+        var res = m.get(code);
+        return res != null ? res : Other;
     }
 }
 enum WordValuesEnum {
