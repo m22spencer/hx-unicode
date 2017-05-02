@@ -2,7 +2,20 @@ package unicode.tr29;
 
 import unicode.tr29.internal.Helper;
 
+/**
+
+	Represents sequences of Visual Characters.
+
+
+	Characters are immutable, it is not possible to modify individual
+
+	characters. No method of this class changes the state of `this` String.
+
+
+	Characters can be concatenated by using the `+` operator.
+**/
 abstract Characters(String) from String {
+    /** The nunber of visual characters in `this` String **/
     public var length(get,never):UInt;
     function get_length():UInt return Helper.unicodeCharacterCount(this);
     public function toString():String return this;
@@ -11,6 +24,10 @@ abstract Characters(String) from String {
         return untyped Helper.unicodeCharacterSubstr(this, pos, len);
     }
 
+    /** Returns the `pos`th visual character in these Characters.
+        
+        If `pos` is negative, or `pos > this.length`, the result is "�".
+     **/
     public function charAt(pos:Int):Character {
         return untyped Helper.unicodeCharacterAt(this, pos);
     }
@@ -33,13 +50,30 @@ abstract Characters(String) from String {
     }
 }
 
+/** A single visual character.
+    Examples: '𝌆' 'c' '🚲'
+**/
 abstract Character(String) {
     @:allow(unicode.UnicodeString)
     function new(str:String) this = str;
     public function toString() return this;
 }
 
+/**
+
+	Represents a sequence of unicode scalars.
+
+
+	Scalars are immutable, it is not possible to modify individual
+
+	scalars. No method of this class changes the state of `this` String.
+
+
+	Scalars can be concatenated by using the `+` operator.
+**/
+
 abstract UnicodeScalars(String) from String {
+    /* Number of unicode scalars in this String */
     public var length(get,never):UInt;
     function get_length():UInt return Helper.unicodeScalarCount(this);
 
