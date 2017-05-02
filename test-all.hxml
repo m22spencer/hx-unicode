@@ -16,12 +16,12 @@
 -cp src
 -cp test
 -main TestAll
--cpp bin/cpp
--cmd "bin\\cpp\\TestAll"
+-cs bin/cs
+-cmd "bin\\cs\\bin\\TestAll"
 
 --next
 -cp src
 -cp test
 -main TestAll
--cs bin/cs
--cmd "bin\\cs\\bin\\TestAll"
+-js bin/TestAll.js
+-cmd "node bin/TestAll.js"
