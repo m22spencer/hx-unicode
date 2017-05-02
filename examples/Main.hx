@@ -20,6 +20,12 @@ class Main {
         trace(scalars.array().join('-'));             //'T-̵-̪-̰-e-͠-̝-s-̖-̫-͉-̠-̯-t-̞-̩-̙'
         trace(scalars.length);                        // 17 
 
+
+        //Creating a character literal
+        Character.literal('T̵̪̰');                       //valid
+        //Character.literal('');                      // Error: Must be 1 character, not 0
+        //Character.literal('T̵̪̰e̝͠s̖̫͉̠̯t̞̩̙');                  // Error: Must be 1 character, not 4
+
         
         // Ascii (haxe default)
         var ascii = [for (i in 0...str.length)

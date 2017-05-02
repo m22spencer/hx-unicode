@@ -57,6 +57,14 @@ abstract Character(String) {
     @:allow(unicode.UnicodeString)
     function new(str:String) this = str;
     public function toString() return this;
+
+    macro public static function literal(str:String) {
+        var C = haxe.macro.Context;
+        var pos = C.currentPos();
+        var count = unicode.tr29.internal.Helper.unicodeCharacterCount(str);
+        if (count != 1) C.error('Must be 1 character, not $count', pos);
+        return macro (untyped $v{str}:unicode.tr29.Unicode.Character);
+    }
 }
 
 /**

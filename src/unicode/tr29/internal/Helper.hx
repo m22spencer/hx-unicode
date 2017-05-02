@@ -24,7 +24,7 @@ class Helper {
 
     static function unicodeCharacterAt(str:String, pos:Int) {
         var chars = unicodeCharacters(str).array();
-        return if (pos >= 0 && pos < chars.length) chars[pos] else "";
+        return if (pos >= 0 && pos < chars.length) chars[pos] else "�";
     }
 
     static function unicodeScalarSubstr(str:String):String {
