@@ -8,3 +8,7 @@
 --next
 -cp src 
 --macro "unicode.tr29.internal.generate.BoundaryPropertyValuesGen.generateExtern('./spec/tr29/properties/SentenceBreakProperty.txt', ['unicode','tr29','internal'], 'SentenceValues')"
+
+--next
+-cp test
+--macro "tr29.GenerateTests.generate()"

@@ -10,7 +10,7 @@ class TestAll {
     static function main() {
         var r = new haxe.unit.TestRunner();
         r.add(new BasicTests());
-        r.add(new tr29.GraphemeBreakTest());
+        r.add(new tr29.GraphemeBreakTests());
         r.run();
 
         #if sys
