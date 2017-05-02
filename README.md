@@ -1,6 +1,4 @@
-```haxe
-using unicode.tr29.Unicode;
-import unicode.tr29.*;
+using unicode.Unicode;
 
 using Lambda;
 
@@ -10,30 +8,28 @@ class Main {
         var str = 'T̵̪̰e̝͠s̖̫͉̠̯t̞̩̙';
 
         //Visual characters
-        trace(str.characters().join('-'));                    //'T̵̪̰-e̝͠-s̖̫͉̠̯-t̞̩̙'
-        trace(str.characters().count());                      // 4 
+        var chars:Characters = str.characters();
+        trace(chars.array().join('-'));               //'T̵̪̰-e̝͠-s̖̫͉̠̯-t̞̩̙'
+        trace(chars.count());                         // 4 
 
-        trace(str.characters().substr(1, 2));                 // 'e̝͠s̖̫͉̠̯'
+        trace(chars.substr(1, 2));                    //'e̝͠s̖̫͉̠̯'
 
 
         //Unicode scalars
-        trace(str.unicodeScalars().array().join('-'));        //'T-̵-̪-̰-e-͠-̝-s-̖-̫-͉-̠-̯-t-̞-̩-̙'
-        trace(str.unicodeScalars().count());                  // 17 
-
-        trace(str.unicodeScalars().substr(1, 2));             // '̵̪'
+        var scalars:UnicodeScalars = str.scalars();
+        trace(scalars.array().join('-'));             //'T-̵-̪-̰-e-͠-̝-s-̖-̫-͉-̠-̯-t-̞-̩-̙'
+        trace(scalars.count());                       // 17 
 
         
         // Ascii (haxe default)
         var ascii = [for (i in 0...str.length)
                          str.charAt(i)];
-        trace(ascii.join('-'));                               // 'T-------e-----s-----------t------'
-        trace(ascii.count());                                 // 30
-        trace(str.substr(1,2));                               // '̵'
+        trace(ascii.join('-'));                       // 'T-------e-----s-----------t------'
+        trace(ascii.count());                         // 30
+        trace(str.substr(1,2));                       // '̵'
  
-
         #if neko
         Sys.sleep(.01);
         #end
     }
 }
-```

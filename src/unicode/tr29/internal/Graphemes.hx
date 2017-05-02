@@ -1,16 +1,14 @@
 package unicode.tr29.internal;
 
-import unicode.tr29.internal.Utf8;
 import unicode.tr29.internal.GraphemeValues;
-
-import unicode.tr29.UnicodeScalars;
+import unicode.tr29.internal.Helper;
 
 class Graphemes {
     public static function characters(s:String):Iterable<String> {
-        var it = unicode.tr29.UnicodeScalars.unicodeScalars(s).iterator();
+        var it = Helper.unicodeScalars(s).iterator();
 
         var cache = null;
-        function next(peek:Bool):UnicodeScalar {
+        function next(peek:Bool):String {
             return if (peek == true) {
                 if (cache == null) cache = it.next();
                 else cache;
@@ -35,8 +33,8 @@ class Graphemes {
             var cur = next(false);
             var buf = cur.toString();
 
-            function val(chr:UnicodeScalar) { 
-                return GraphemeValues.get(chr.codePoint());
+            function val(chr:String) { 
+                return GraphemeValues.get(Helper.codePointAt(chr, 0));
             }
 
             while(hasNext()) {

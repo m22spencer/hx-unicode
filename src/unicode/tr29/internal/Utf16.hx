@@ -7,7 +7,7 @@ import haxe.ds.Option;
 #end
 
 class Utf16 {
-    public static function codeAt(string:String, index:Int):Option<UInt> {
+    public static function codePointAt(string:String, index:Int):Option<UInt> {
         if (index >= string.length)
             return None;
         var cc = string.charCodeAt(index);

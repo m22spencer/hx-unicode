@@ -26,11 +26,11 @@ class TestAll {
 
 class BasicTests extends haxe.unit.TestCase {
     function testScalarSize1() {
-        assertEquals(1, '𝌆'.unicodeScalars().count());
+        assertEquals(1, '𝌆'.scalars().count());
     }
 
     function testCodepoint() {
-        assertEquals(0x1D306, '𝌆'.unicodeScalars().iterator().next().codePoint());
+        assertEquals(0x1D306, '𝌆'.scalars().iterator().next().code);
     }
 
     function testCharacterSize1() {
@@ -38,10 +38,10 @@ class BasicTests extends haxe.unit.TestCase {
     }
 
     function testRegionalIndicatorA() {
-        assertEquals(0x1F1E6, '🇦'.unicodeScalars().iterator().next().codePoint());
+        assertEquals(0x1F1E6, '🇦'.scalars().iterator().next().code);
     }
 
     function testHighSurrogateCharacter() {
-        assertEquals(0xD800, UnicodeScalar.fromCodePoint(0xD800).codePoint());
+        assertEquals(0xD800, UnicodeScalar.fromCodePoint(0xD800).code);
     }
 }

@@ -15,7 +15,7 @@ class Utf8 {
         return { iterator: function() {
             var p = 0;
             function advance():Utf8Scalar {
-                var r = codepointAt(s, p);
+                var r = codePointAt(s, p);
                 return if (r.codepoint == 0xFFFD) {
                     p += 1;
                     untyped '�';
@@ -36,7 +36,7 @@ class Utf8 {
     public static function validate(s:String):Bool {
         var p = 0;
         while(p < s.length) {
-            var r = codepointAt(s, p);
+            var r = codePointAt(s, p);
             if (r.codepoint == 0xFFFD)
                 return false;
             p += r.bytesConsumed;
@@ -88,7 +88,7 @@ class Utf8 {
         If an invalid utf8 character is encountered, this function will return
           `�` (U+FFFD) with a `bytesConsumed` of `1`.
     **/
-    public static function codepointAt(str:String, byte:Int):{ codepoint: Int, bytesConsumed: Int } {
+    public static function codePointAt(str:String, byte:Int):{ codepoint: Int, bytesConsumed: Int } {
         return switch(maybeCodepointAt(str, byte)) {
         case Some(codepoint): { codepoint: codepoint, bytesConsumed: sizeOfCodepoint(codepoint) };
         case None           : { codepoint: 0xFFFD   , bytesConsumed: 1 };
@@ -170,7 +170,7 @@ class Utf8 {
 
 abstract Utf8Scalar(String) to String {
     public function codepoint() {
-        return Utf8.codepointAt(this, 0).codepoint;
+        return Utf8.codePointAt(this, 0).codepoint;
     }
 
     public function bytes() {
