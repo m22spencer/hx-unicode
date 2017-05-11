@@ -20,6 +20,9 @@ abstract Characters(String) from String {
     function get_length():UInt return Helper.unicodeCharacterCount(this);
     public function toString():String return this;
 
+    @:allow(unicode.tr29)
+    function self() return this;
+
     public function substr(pos:Int, ?len:Int) {
         return untyped Helper.unicodeCharacterSubstr(this, pos, len);
     }
@@ -38,7 +41,13 @@ abstract Characters(String) from String {
 
     @:op(a + b)
     static function concatenateCharacters(a:Characters, b:Characters):Characters {
-        return (untyped a:String) + (untyped b:String);
+        return a.self() + b.self();
+    }
+
+    @:op(a + b)
+    @:commutative
+    static function concatenateCharacter(a:Characters, b:Character):Characters {
+        return a.self() + b.self();
     }
 
     public function iterator():Iterator<Character> {
@@ -56,6 +65,9 @@ abstract Characters(String) from String {
 abstract Character(String) {
     @:allow(unicode.UnicodeString)
     function new(str:String) this = str;
+
+    @:allow(unicode.tr29)
+    function self() return this;
     public function toString() return this;
 
     macro public static function literal(str:String) {
@@ -64,6 +76,11 @@ abstract Character(String) {
         var count = unicode.tr29.internal.Helper.unicodeCharacterCount(str);
         if (count != 1) C.error('Must be 1 character, not $count', pos);
         return macro (untyped $v{str}:unicode.tr29.Unicode.Character);
+    }
+
+    @:op(a + b)
+    static function concatenate(a:Character, b:Character):Characters {
+        return a.self() + b.self();
     }
 }
 
@@ -87,6 +104,7 @@ abstract UnicodeScalars(String) from String {
 
     @:allow(unicode.UnicodeString)
     function new(str:String) this = str;
+    function self() return this;
     public function toString() return this;
 
     public static function characters(str:haxe.extern.EitherType<UnicodeScalars,String>):Characters {
@@ -97,8 +115,15 @@ abstract UnicodeScalars(String) from String {
         return untyped (Helper.unicodeScalars(this).iterator());
     }
 
-    @:op(a + b) static function concatenateScalars(a:UnicodeScalars, b:UnicodeScalars):UnicodeScalars {
+    @:op(a + b) 
+    static function concatenateScalars(a:UnicodeScalars, b:UnicodeScalars):UnicodeScalars {
         return (untyped a:String) + (untyped b:String);
+    }
+
+    @:op(a + b)
+    @:commutative
+    static function concatenateScalar(a:UnicodeScalars, b:UnicodeScalar):UnicodeScalars {
+        return a.self() + b.self();
     }
 
     @:to function iterable():Iterable<UnicodeScalar> {
@@ -113,9 +138,18 @@ abstract UnicodeScalar(String) {
     @:allow(unicode.UnicodeScalars)
     function new(str:String) this = str;
 
+    @:allow(unicode.tr29)
+    function self() return this;
+
     public function toString() return this;
 
     public static function fromCodePoint(code:UInt):UnicodeScalar {
         return new UnicodeScalar(Helper.fromCodePoint(code));
     }
+
+    @:op(a + b)
+    static function concatenateScalar(a:UnicodeScalar, b:UnicodeScalar):UnicodeScalars {
+        return a.self() + b.self();
+    }
+
 }
