@@ -15,6 +15,6 @@
     "editor.renderWhitespace": "all",
     "files.exclude": {
         "**/.n": true,
-        "**/.hl": true,
+        "**/.hl": true
     }
 }
