@@ -1,6 +1,8 @@
 package unicode.tr29;
 
 import unicode.tr29.internal.Helper;
+import unicode.tr29.internal.UnicodeRepr;
+using Lambda;
 
 /**
 
@@ -14,44 +16,52 @@ import unicode.tr29.internal.Helper;
 
 	Characters can be concatenated by using the `+` operator.
 **/
-abstract Characters(String) from String {
+abstract Characters(UnicodeRepr) from UnicodeRepr {
     /** The nunber of visual characters in `this` String **/
     public var length(get,never):UInt;
-    function get_length():UInt return Helper.unicodeCharacterCount(this);
-    public function toString():String return this;
+    function get_length():UInt return (iterable()).count();
+    public function toString():String return this.toString();
 
     @:allow(unicode.tr29)
-    function self() return this;
+    function self():UnicodeRepr return this;
 
+    /*
     public function substr(pos:Int, ?len:Int) {
         return untyped Helper.unicodeCharacterSubstr(this, pos, len);
     }
+    */
 
     /** Returns the `pos`th visual character in these Characters.
         
         If `pos` is negative, or `pos > this.length`, the result is "�".
      **/
     public function charAt(pos:Int):Character {
-        return untyped Helper.unicodeCharacterAt(this, pos);
+        return iterable().array()[pos];
     }
 
+    /*
     public static function scalars(str:haxe.extern.EitherType<Characters,String>):UnicodeScalars {
         return cast(str,String);
     }
+    */
 
     @:op(a + b)
     static function concatenateCharacters(a:Characters, b:Characters):Characters {
-        return a.self() + b.self();
+        return a.self().add(b.self());
     }
 
     @:op(a + b)
     @:commutative
     static function concatenateCharacter(a:Characters, b:Character):Characters {
-        return a.self() + b.self();
+        return a.self().add(b.self());
     }
 
     public function iterator():Iterator<Character> {
-        return untyped (Helper.unicodeCharacters(this).iterator());
+        var its = unicode.tr29.internal.Graphemes.characters(self());
+
+        var itv = its.map(function(r) return @:privateAccess new Character(r));
+
+        return itv.iterator();
     }
 
     @:to function iterable():Iterable<Character> {
@@ -62,25 +72,26 @@ abstract Characters(String) from String {
 /** A single visual character.
     Examples: '𝌆' 'c' '🚲'
 **/
-abstract Character(String) {
-    @:allow(unicode.UnicodeString)
-    function new(str:String) this = str;
+abstract Character(UnicodeRepr) {
+    function new(str:UnicodeRepr) this = str;
 
     @:allow(unicode.tr29)
     function self() return this;
-    public function toString() return this;
+    public function toString() return this.toString();
 
+    /*
     macro public static function literal(str:String) {
         var C = haxe.macro.Context;
         var pos = C.currentPos();
-        var count = unicode.tr29.internal.Helper.unicodeCharacterCount(str);
+        var count = (str:Character).length == 1;
         if (count != 1) C.error('Must be 1 character, not $count', pos);
         return macro (untyped $v{str}:unicode.tr29.Unicode.Character);
     }
+    */
 
     @:op(a + b)
     static function concatenate(a:Character, b:Character):Characters {
-        return a.self() + b.self();
+        return a.self().add(b.self());
     }
 }
 
@@ -97,8 +108,9 @@ abstract Character(String) {
 	Scalars can be concatenated by using the `+` operator.
 **/
 
+/*
 abstract UnicodeScalars(String) from String {
-    /* Number of unicode scalars in this String */
+    // Number of unicode scalars in this String
     public var length(get,never):UInt;
     function get_length():UInt return Helper.unicodeScalarCount(this);
 
@@ -153,3 +165,4 @@ abstract UnicodeScalar(String) {
     }
 
 }
+*/

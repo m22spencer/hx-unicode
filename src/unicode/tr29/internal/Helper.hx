@@ -3,8 +3,17 @@ package unicode.tr29.internal;
 import unicode.tr29.internal.*;
 using Lambda;
 
+
+typedef Repr = { 
+    function length(_:Dynamic):Int;
+    function charCodeAt(_:Dynamic, index:Int):Null<Int>; 
+    function charAt(_:Dynamic, index:Int):Null<Dynamic>;
+    function toString(_:Dynamic):String;
+}
+
 @:publicFields
 class Helper {
+    /*
     static function unicodeCharacterCount(str:String):UInt {
         return unicodeCharacters(str).count();
     }
@@ -32,7 +41,8 @@ class Helper {
     }
 
     static function unicodeCharacters(str:String):Iterable<String> {
-        return Graphemes.characters(str);
+        return Graphemes.characters(str)
+            .map(function(r:UnicodeRepr) return r.toString());
     }
 
     static function unicodeScalars(str:String):Iterable<String> {
@@ -59,6 +69,16 @@ class Helper {
                    , next   : advance
                    }
         } }
+    }
+    */
+
+    static function codeSizeAt(str:String, pos:UInt):UInt {
+        #if (hl||js||cs)
+        var size = unicode.tr29.internal.Utf16.codeSizeAt(str, pos);
+        #else
+        var size = unicode.tr29.internal.Utf8.codeSizeAt(str, pos);
+        #end
+        return switch(size) { case Some(v): v; case None: 1; };
     }
 
     static function codePointAt(str:String, pos:UInt):UInt {

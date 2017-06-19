@@ -2,13 +2,14 @@ package unicode.tr29.internal;
 
 import unicode.tr29.internal.GraphemeValues;
 import unicode.tr29.internal.Helper;
+import unicode.tr29.internal.UnicodeRepr;
 
 class Graphemes {
-    public static function characters(s:String):Iterable<String> {
-        var it = Helper.unicodeScalars(s).iterator();
+    public static function characters(s:UnicodeRepr):Iterable<UnicodeRepr> {
+        var it = s.getMarkers().iterator();
 
         var cache = null;
-        function next(peek:Bool):String {
+        function next(peek:Bool):Marker {
             return if (peek == true) {
                 if (cache == null) cache = it.next();
                 else cache;
@@ -26,15 +27,17 @@ class Graphemes {
             return cache != null || it.hasNext();
         }
 
+        var pos   = 0;
         var cache = null;
         function advance() {
             riCt = 0;
             gb10 = false;
+            
             var cur = next(false);
-            var buf = cur.toString();
 
-            function val(chr:String) { 
-                return GraphemeValues.get(Helper.codePointAt(chr, 0));
+
+            function val(chr:Marker) { 
+                return GraphemeValues.get(chr.code);
             }
 
             while(hasNext()) {
@@ -45,11 +48,16 @@ class Graphemes {
                 if (needsBreak(val(cur), val(next(true)))) {
                     break;
                 } else {
-                    buf += (cur = next(false)).toString();
+                    cur = next(false);
                 }
             }
 
-            return buf;
+            var end = (cur.pos + cur.size);
+            var len = end - pos;
+            var ss = s.cut(pos, len);
+            pos += len;
+
+            return ss;
         }
 
         return { iterator: function() 
@@ -59,6 +67,7 @@ class Graphemes {
         };
     }
 
+    /*
     public static function substrChars(s:String, pos:Int, len:Int) {
         return takeChars(dropChars(s, pos), len);
     }
@@ -84,6 +93,7 @@ class Graphemes {
         }
         return s.substr(0, blen);
     }
+    */
 
     public static var riCt = 0;
     public static var extend = false;

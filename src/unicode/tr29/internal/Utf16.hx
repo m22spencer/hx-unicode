@@ -19,7 +19,7 @@ class Utf16 {
             var hs = cc;
             var ls = string.charCodeAt(index+1);
 
-            if (ls >= 0xD800 && cc <= 0xDFFF) {
+            if (ls >= 0xD800 && ls <= 0xDFFF) {
                 var hv = hs - 0xD800;
                 var lv = ls - 0xDC00;
                 var t = (hv << 10) | lv;
