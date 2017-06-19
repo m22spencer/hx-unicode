@@ -67,34 +67,6 @@ class Graphemes {
         };
     }
 
-    /*
-    public static function substrChars(s:String, pos:Int, len:Int) {
-        return takeChars(dropChars(s, pos), len);
-    }
-
-    public static function dropChars(s:String, n:Int):String {
-        var blen = 0;
-        var it = characters(s).iterator();
-        var i = 0;
-        while(it.hasNext() && i++ < n ) {
-            var n = it.next();
-            blen += n.length;
-        }
-        return s.substr(blen);
-    }
-
-    public static function takeChars(s:String, n:Int):String {
-        var blen = 0;
-        var it = characters(s).iterator();
-        var i = 0;
-        while(it.hasNext() && i++ < n ) {
-            var n = it.next();
-            blen += n.length;
-        }
-        return s.substr(0, blen);
-    }
-    */
-
     public static var riCt = 0;
     public static var extend = false;
     public static var gb10   = false;
