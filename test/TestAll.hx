@@ -5,9 +5,15 @@ import haxe.unit.TestCase;
 using unicode.tr29.Unicode;
 import unicode.tr29.*;
 using Lambda;
+using StringTools;
 
 class TestAll {
     static function main() {
+        var G = unicode.tr29.internal.GraphemeValues;
+
+        trace(G.get(0x0378));
+        trace(G.get(0x1f3fb));
+
         var r = new haxe.unit.TestRunner();
         r.add(new BasicTests());
         r.add(new tr29.GraphemeBreakTests());

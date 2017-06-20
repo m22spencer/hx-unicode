@@ -17,11 +17,32 @@
 -cp test
 -main TestAll
 -cs bin/cs
--cmd "bin\\cs\\bin\\TestAll"
+-cmd "bin/cs/bin/TestAll.exe"
+
+--next
+-cp src
+-cp test
+-main TestAll
+-java bin/java
+-cmd "java -jar bin/java/TestAll.jar"
 
 --next
 -cp src
 -cp test
 -main TestAll
 -js bin/TestAll.js
--cmd "node bin/TestAll.js"
+-cmd "nodejs bin/TestAll.js"
+
+--next
+-cp src
+-cp test
+-main TestAll
+-python bin/TestAll.py
+-cmd "python3 bin/TestAll.py"
+
+--next
+-cp src
+-cp test
+-main TestAll
+-lua bin/TestAll.lua
+-cmd "lua bin/TestAll.lua"

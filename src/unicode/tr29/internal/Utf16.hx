@@ -2,7 +2,7 @@ package unicode.tr29.internal;
 
 import haxe.ds.Option;
 
-#if !(hl||js||cs)
+#if !(hl||js||cs||java)
 #error "Unsupported platform"
 #end
 
@@ -56,8 +56,12 @@ class Utf16 {
         }
     }
 
+    public static function codepointSizeAt(string:String, index:Int):UInt {
+        return switch(codeSizeAt(string, index)) { case Some(v): v; case None: 1; };
+    }
+
     public static function fromCode(code:UInt):String {
-        #if (js||hl||cs)
+        #if (js||hl||cs||java)
         return if (code >= 0x10000) {
             //surrogate pair
             var t = code - 0x10000;

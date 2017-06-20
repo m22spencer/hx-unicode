@@ -36,45 +36,60 @@ class Helper {
     }
 
     static function unicodeScalars(str:String):Iterable<String> {
-        var str:String = untyped str;
-        return { iterator: function() {
-            var p = 0;
-            function advance():String {
-                #if (hl||js||cs)
-                var size = unicode.tr29.internal.Utf16.codeSizeAt(str, p);
-                #else
-                var size = unicode.tr29.internal.Utf8.codeSizeAt(str, p);
-                #end
-                return switch(size) {
-                case Some(s): 
-                    var chr = str.substr(p, s);
-                    p += s;
-                    chr;
-                case None:
-                    p++;
-                    '�';
-                }
-            }
-            return { hasNext: function() return p < str.length
-                   , next   : advance
-                   }
-        } }
+        return [for(p in codepoints(str)) 
+                    Helper.fromCodePoint(p.code)];
     }
 
     static function codePointAt(str:String, pos:UInt):UInt {
-        #if (hl||js||cs)
+        #if (python)
+        return python.internal.UBuiltins.ord(str.substr(pos));
+        #elseif (hl||js||cs||java)
         return switch(Utf16.codePointAt(str, pos)) { case Some(p): p; case None: 0xFFFD; }
         #else
         return Utf8.codePointAt(str, pos).codepoint; 
         #end
+    }
 
+    static function codePointSizeAt(str:String, pos:UInt):UInt {
+        #if (python)
+        return 1;  
+        #elseif (hl||js||cs||java)
+        return Utf16.codepointSizeAt(str, pos);
+        #else
+        return Utf8.codepointSizeAt(str, pos);
+        #end 
     }
 
     static function fromCodePoint(code:UInt):String {
-        #if (hl||js||cs)
+        #if (python)
+        return String.fromCharCode(code);
+        #elseif (hl||js||cs||java)
         return unicode.tr29.internal.Utf16.fromCode(code);
         #else
         return unicode.tr29.internal.Utf8.Utf8Scalar.fromCodepoint(code);
         #end
+    }
+
+    static function codepoints(str:String):Iterator<{code:UInt, size:UInt}> {
+        var pos = 0;
+        var len = str.length;
+        function hasNext() {
+            return pos < len; 
+        }
+
+        function next() {
+            var code = codePointAt(str, pos);
+            var size = codePointSizeAt(str, pos);
+            pos += size;
+            return {code: code, size: size};
+        }
+
+        return { next: next, hasNext: hasNext };
+    }
+}
+
+class Slice {
+    inline public function new(str:String, start:UInt, len:UInt) {
+
     }
 }
