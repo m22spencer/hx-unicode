@@ -1,5 +1,5 @@
 package tr29;
-class GraphemeBreakTests extends haxe.unit.TestCase {
+class GraphemeBreakTests0 extends haxe.unit.TestCase {
     function test0() {
         assertEquals("÷ 0020 ÷ 0020 ÷", tr29.Tools.genBreaks([32,32]));
     }
@@ -300,6 +300,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test99() {
         assertEquals("÷ 000A ÷ 0308 ÷ 11A8 ÷", tr29.Tools.genBreaks([10,776,4520]));
     }
+}
+class GraphemeBreakTests1 extends haxe.unit.TestCase {
     function test100() {
         assertEquals("÷ 000A ÷ AC00 ÷", tr29.Tools.genBreaks([10,44032]));
     }
@@ -600,6 +602,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test199() {
         assertEquals("÷ 0300 × 0308 ÷ D800 ÷", tr29.Tools.genBreaks([768,776,55296]));
     }
+}
+class GraphemeBreakTests2 extends haxe.unit.TestCase {
     function test200() {
         assertEquals("÷ 0600 × 0020 ÷", tr29.Tools.genBreaks([1536,32]));
     }
@@ -900,6 +904,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test299() {
         assertEquals("÷ 1100 × 0308 ÷ 11A8 ÷", tr29.Tools.genBreaks([4352,776,4520]));
     }
+}
+class GraphemeBreakTests3 extends haxe.unit.TestCase {
     function test300() {
         assertEquals("÷ 1100 × AC00 ÷", tr29.Tools.genBreaks([4352,44032]));
     }
@@ -1200,6 +1206,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test399() {
         assertEquals("÷ 11A8 × 0308 ÷ D800 ÷", tr29.Tools.genBreaks([4520,776,55296]));
     }
+}
+class GraphemeBreakTests4 extends haxe.unit.TestCase {
     function test400() {
         assertEquals("÷ AC00 ÷ 0020 ÷", tr29.Tools.genBreaks([44032,32]));
     }
@@ -1500,6 +1508,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test499() {
         assertEquals("÷ 1F1E6 × 0308 ÷ 11A8 ÷", tr29.Tools.genBreaks([127462,776,4520]));
     }
+}
+class GraphemeBreakTests5 extends haxe.unit.TestCase {
     function test500() {
         assertEquals("÷ 1F1E6 ÷ AC00 ÷", tr29.Tools.genBreaks([127462,44032]));
     }
@@ -1800,6 +1810,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test599() {
         assertEquals("÷ 1F3FB × 0308 ÷ D800 ÷", tr29.Tools.genBreaks([127995,776,55296]));
     }
+}
+class GraphemeBreakTests6 extends haxe.unit.TestCase {
     function test600() {
         assertEquals("÷ 200D ÷ 0020 ÷", tr29.Tools.genBreaks([8205,32]));
     }
@@ -2100,6 +2112,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test699() {
         assertEquals("÷ 1F466 × 0308 ÷ 11A8 ÷", tr29.Tools.genBreaks([128102,776,4520]));
     }
+}
+class GraphemeBreakTests7 extends haxe.unit.TestCase {
     function test700() {
         assertEquals("÷ 1F466 ÷ AC00 ÷", tr29.Tools.genBreaks([128102,44032]));
     }
@@ -2400,6 +2414,8 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     function test799() {
         assertEquals("÷ D800 ÷ 0308 ÷ D800 ÷", tr29.Tools.genBreaks([55296,776,55296]));
     }
+}
+class GraphemeBreakTests8 extends haxe.unit.TestCase {
     function test800() {
         assertEquals("÷ 000D × 000A ÷ 0061 ÷ 000A ÷ 0308 ÷", tr29.Tools.genBreaks([13,10,97,10,776]));
     }
@@ -2465,5 +2481,18 @@ class GraphemeBreakTests extends haxe.unit.TestCase {
     }
     function test821() {
         assertEquals("÷ 1F466 ÷ 1F466 ÷", tr29.Tools.genBreaks([128102,128102]));
+    }
+}
+class GraphemeBreakTests {
+    public static function addTests(r:haxe.unit.TestRunner) {
+        r.add(new GraphemeBreakTests0());
+        r.add(new GraphemeBreakTests1());
+        r.add(new GraphemeBreakTests2());
+        r.add(new GraphemeBreakTests3());
+        r.add(new GraphemeBreakTests4());
+        r.add(new GraphemeBreakTests5());
+        r.add(new GraphemeBreakTests6());
+        r.add(new GraphemeBreakTests7());
+        r.add(new GraphemeBreakTests8());
     }
 }

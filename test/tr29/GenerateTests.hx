@@ -52,15 +52,31 @@ class GenerateTests {
 
         l('package tr29;');
 
-        l('class GraphemeBreakTests extends haxe.unit.TestCase {');
 
+        var g  = 0;
         var ct = 0;
-        for (test in tests) {
-            l('    function test${ct++}() {');
-            l('        assertEquals("${test.line}", tr29.Tools.genBreaks(${test.scalars}));');
-            l('    }');
+
+        while(tests.length > 0) {
+            var t = tests.slice(0, 100);
+            tests = tests.slice(100);
+
+            l('class GraphemeBreakTests${g++} extends haxe.unit.TestCase {');
+     
+            for (test in t) {
+                l('    function test${ct++}() {');
+                l('        assertEquals("${test.line}", tr29.Tools.genBreaks(${test.scalars}));');
+                l('    }');
+            }
+     
+            l('}');
         }
 
+        l('class GraphemeBreakTests {');
+        l('    public static function addTests(r:haxe.unit.TestRunner) {');
+        for (i in 0...g) {
+            l('        r.add(new GraphemeBreakTests$i());') ;
+        }
+        l('    }');
         l('}');
 
         sys.io.File.saveContent('./test/tr29/GraphemeBreakTests.hx', source);
